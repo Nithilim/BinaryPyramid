@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BinaryPyramid
+﻿namespace BinaryPyramid
 {
     public class Node
     {
         public int Data { get; }
-
-        public int Layer { get; }
 
         public Node LeftChild { get; private set; }
 
@@ -16,10 +10,9 @@ namespace BinaryPyramid
 
         public bool HasChildren { get; private set; }
 
-        public Node(int data, int layer)
+        public Node(int data)
         {
             Data = data;
-            Layer = layer;
             HasChildren = false;
         }
 
