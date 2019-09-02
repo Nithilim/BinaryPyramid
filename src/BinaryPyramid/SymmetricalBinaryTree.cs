@@ -52,19 +52,34 @@ namespace BinaryPyramid
             return null;
         }
 
-
         public NodePath FindHighestSumPath()
         {
-            var result = EnumerateNodePaths();
-            var paths = new List<NodePath>();
-            foreach (var item in result)
+            var results = EnumerateNodePaths();
+            var filteredResults = new List<NodePath>();
+            foreach (var result in results)
             {
-                paths.Add(item);
+                bool isLastEven = RootNode.IsDataEven;
+                var resultPaths = result.Path;
+                foreach(var item in resultPaths)
+                {
+                    if (RootNode.Id == item.Id)
+                        continue;
+
+                    if (item.IsDataEven != isLastEven)
+                    {
+                        if ((resultPaths.IndexOf(item) + 1) == resultPaths.Count)
+                            filteredResults.Add(result);
+
+                        isLastEven = item.IsDataEven;
+                    }
+                    else
+                        break;
+                }
             }
 
-            var sums = paths.Select(p => p.Sum()).ToList();
+            var sums = filteredResults.Select(p => p.Sum()).ToList();
             int maxSum = sums.Max();
-            return paths[sums.IndexOf(maxSum)];
+            return filteredResults[sums.IndexOf(maxSum)];
         }
 
         private List<NodePath> EnumerateNodePaths()

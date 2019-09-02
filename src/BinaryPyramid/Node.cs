@@ -1,8 +1,14 @@
-﻿namespace BinaryPyramid
+﻿using System;
+
+namespace BinaryPyramid
 {
     public class Node
     {
+        public Guid Id { get; }
+
         public int Data { get; }
+
+        public bool IsDataEven { get; }
 
         public Node LeftChild { get; private set; }
 
@@ -13,15 +19,9 @@
         public Node(int data)
         {
             Data = data;
+            IsDataEven = data % 2 == 0;
+            Id = Guid.NewGuid();
             HasChildren = false;
-        }
-
-        public Node(int data, Node leftChild, Node rightChild)
-        {
-            Data = data;
-            LeftChild = leftChild;
-            RightChild = rightChild;
-            HasChildren = true;
         }
 
         public void SetSymmetricalChildren(Node leftData, Node rightData)
